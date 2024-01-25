@@ -3,12 +3,12 @@ import React from 'react';
 const IngredientItem = (props) => {
   const addIngredient = (item) => {
     console.log({ ingredient: item });
-    props.addToping(item);
+    props.addTopping(item);
   };
 
   const removeIngredient = (item) => {
     console.log({ ingredient: item });
-    props.removeToping(item);
+    props.removeTopping(item);
   };
 
   return (

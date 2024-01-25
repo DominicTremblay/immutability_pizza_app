@@ -1,48 +1,39 @@
-import { useReducer } from 'react';
-import PizzaList from './components/PizzaList';
+import { useState } from 'react';
 import IngredientList from './components/IngredientList';
 import MyPizza from './components/MyPizza';
 import { pizzasList, ingredients } from './data/pizzas';
 import './App.css';
-import pizzaReducer, {
-  SELECT_PIZZA,
-  ADD_TOPPING,
-  REMOVE_TOPPING,
-} from './reducers/pizzasReducer';
 
 function App() {
-  const [state, dispatch] = useReducer(pizzaReducer, {
-    myPizza: null,
-    pizzaIngredients: ingredients,
-    pizzas: pizzasList,
-  });
+  const [myPizza, setMyPizza] = useState(pizzasList[0]);
+  const [toppings, setToppings] = useState(ingredients);
 
-  const addToMyPizza = (pizzaName) => {
-    console.log({ pizzaName });
+  const addTopping = (topping) => {
+    console.log({ add: topping });
 
-    const pizzaFound = state.pizzas.find((pizza) => pizza.name === pizzaName);
-
-    // [TODO => call dispatch]
-    // setMyPizza(pizzaFound);
-    dispatch({ type: SELECT_PIZZA, pizza: pizzaFound });
+    setMyPizza((prev) => ({
+      ...prev,
+      ingredients: [...prev.ingredients, topping],
+    }));
   };
 
-  const addToping = (toping) => {
-    // [TODO: call dispatch]
-  };
-
-  const removeToping = (toping) => {
-    // [TODO: call dispatch]
+  const removeTopping = (topping) => {
+    const updatedToppings = myPizza.ingredients.filter(
+      (ingredient) => ingredient !== topping
+    );
+    setMyPizza((prev) => ({
+      ...prev,
+      ingredients: updatedToppings,
+    }));
   };
 
   return (
     <div className="App">
-      <PizzaList pizzas={state.pizzas} addToMyPizza={addToMyPizza} />
-      <MyPizza myPizza={state.myPizza} />
+      <MyPizza myPizza={myPizza} />
       <IngredientList
-        ingredients={state.pizzaIngredients}
-        addToping={addToping}
-        removeToping={removeToping}
+        toppings={toppings}
+        addTopping={addTopping}
+        removeTopping={removeTopping}
       />
     </div>
   );

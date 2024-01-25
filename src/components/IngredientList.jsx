@@ -2,12 +2,12 @@ import React from 'react';
 import IngredientItem from './IngredientItem';
 
 const IngredientList = (props) => {
-  const ingredientsList = props.ingredients.map((ingredient) => (
+  const toppingList = props.toppings.map((topping) => (
     <IngredientItem
-      key={ingredient}
-      name={ingredient}
-      addToping={props.addToping}
-      removeToping={props.removeToping}
+      key={topping}
+      name={topping}
+      addTopping={props.addTopping}
+      removeTopping={props.removeTopping}
     />
   ));
 
@@ -15,7 +15,7 @@ const IngredientList = (props) => {
     <section>
       <h3>List of Ingredients</h3>
 
-      <ul>{ingredientsList}</ul>
+      <ul>{toppingList}</ul>
     </section>
   );
 };

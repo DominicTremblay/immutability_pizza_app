@@ -11,8 +11,8 @@ const MyPizza = (props) => {
         <div>
           <h4>My topings</h4>
           <ul>
-            {props.myPizza?.ingredients.map((ingredient) => (
-              <li>{ingredient}</li>
+            {props.myPizza?.ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
             ))}
           </ul>
         </div>
