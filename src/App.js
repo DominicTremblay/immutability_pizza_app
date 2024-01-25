@@ -1,46 +1,46 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import PizzaList from './components/PizzaList';
 import IngredientList from './components/IngredientList';
 import MyPizza from './components/MyPizza';
 import { pizzasList, ingredients } from './data/pizzas';
 import './App.css';
+import pizzaReducer, {
+  SELECT_PIZZA,
+  ADD_TOPPING,
+  REMOVE_TOPPING,
+} from './reducers/pizzasReducer';
 
 function App() {
-  const [myPizza, setMyPizza] = useState(null);
-
-  const [pizzaIngredients, setPizzaIngredients] = useState(ingredients);
-
-  const [pizzas, setPizzas] = useState(pizzasList);
+  const [state, dispatch] = useReducer(pizzaReducer, {
+    myPizza: null,
+    pizzaIngredients: ingredients,
+    pizzas: pizzasList,
+  });
 
   const addToMyPizza = (pizzaName) => {
     console.log({ pizzaName });
 
-    const pizzaFound = pizzas.find((pizza) => pizza.name === pizzaName);
+    const pizzaFound = state.pizzas.find((pizza) => pizza.name === pizzaName);
 
-    setMyPizza(pizzaFound);
+    // [TODO => call dispatch]
+    // setMyPizza(pizzaFound);
+    dispatch({ type: SELECT_PIZZA, pizza: pizzaFound });
   };
 
   const addToping = (toping) => {
-    setMyPizza((prev) => ({
-      ...prev,
-      ingredients: [...prev.ingredients, toping],
-    }));
+    // [TODO: call dispatch]
   };
 
   const removeToping = (toping) => {
-    const updatedTopings = myPizza.ingredients.filter(
-      (ingredient) => ingredient !== toping
-    );
-
-    setMyPizza((prev) => ({ ...prev, ingredients: updatedTopings }));
+    // [TODO: call dispatch]
   };
 
   return (
     <div className="App">
-      <PizzaList pizzas={pizzas} addToMyPizza={addToMyPizza} />
-      <MyPizza myPizza={myPizza} />
+      <PizzaList pizzas={state.pizzas} addToMyPizza={addToMyPizza} />
+      <MyPizza myPizza={state.myPizza} />
       <IngredientList
-        ingredients={pizzaIngredients}
+        ingredients={state.pizzaIngredients}
         addToping={addToping}
         removeToping={removeToping}
       />
