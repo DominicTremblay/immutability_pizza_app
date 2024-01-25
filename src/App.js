@@ -1,40 +1,39 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import Header from './components/Header';
 import IngredientList from './components/IngredientList';
 import MyPizza from './components/MyPizza';
 import { pizzasList, ingredients } from './data/pizzas';
 import './App.css';
+import dataReducer, {
+  ADD_TOPPING,
+  REMOVE_TOPPING,
+} from './reducers/dataReducer';
 
 function App() {
-  const [myPizza, setMyPizza] = useState(pizzasList[0]);
-  const [toppings, setToppings] = useState(ingredients);
+
+  const [state, dispatch] = useReducer(dataReducer, {
+    myPizza: pizzasList[0],
+    toppings: ingredients,
+  });
 
   const addTopping = (topping) => {
     console.log({ add: topping });
 
-    setMyPizza((prev) => ({
-      ...prev,
-      ingredients: [...prev.ingredients, topping],
-    }));
+    // [TODO: call dispatch]
+    dispatch({ type: ADD_TOPPING, payload: topping });
   };
 
   const removeTopping = (topping) => {
-    const updatedToppings = myPizza.ingredients.filter(
-      (ingredient) => ingredient !== topping
-    );
-    setMyPizza((prev) => ({
-      ...prev,
-      ingredients: updatedToppings,
-    }));
+    dispatch({ type: REMOVE_TOPPING, payload: topping });
   };
 
   return (
     <div className="App">
       <Header />
       <div className="sections">
-        <MyPizza myPizza={myPizza} />
+        <MyPizza myPizza={state.myPizza} />
         <IngredientList
-          toppings={toppings}
+          toppings={state.toppings}
           addTopping={addTopping}
           removeTopping={removeTopping}
         />
