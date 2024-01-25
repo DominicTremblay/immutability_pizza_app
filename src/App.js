@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Header from './components/Header';
 import IngredientList from './components/IngredientList';
 import MyPizza from './components/MyPizza';
 import { pizzasList, ingredients } from './data/pizzas';
@@ -29,12 +30,15 @@ function App() {
 
   return (
     <div className="App">
-      <MyPizza myPizza={myPizza} />
-      <IngredientList
-        toppings={toppings}
-        addTopping={addTopping}
-        removeTopping={removeTopping}
-      />
+      <Header />
+      <div className="sections">
+        <MyPizza myPizza={myPizza} />
+        <IngredientList
+          toppings={toppings}
+          addTopping={addTopping}
+          removeTopping={removeTopping}
+        />
+      </div>
     </div>
   );
 }

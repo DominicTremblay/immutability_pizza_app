@@ -1,5 +1,6 @@
 import React from 'react';
 import IngredientItem from './IngredientItem';
+import './IngredientList.css';
 
 const IngredientList = (props) => {
   const toppingList = props.toppings.map((topping) => (
@@ -15,7 +16,7 @@ const IngredientList = (props) => {
     <section>
       <h3>List of Ingredients</h3>
 
-      <ul>{toppingList}</ul>
+      <ul className='topping-list'>{toppingList}</ul>
     </section>
   );
 };

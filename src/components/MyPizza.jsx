@@ -1,11 +1,12 @@
 import React from 'react';
+import './MyPizza.css';
 
 const MyPizza = (props) => {
   return (
     <section>
       <h3>My Pizza</h3>
 
-      <article>
+      <article className="my-pizza">
         <header>My Pizza: {props.myPizza?.name ?? 'No Pizza Selected'}</header>
 
         <div>
